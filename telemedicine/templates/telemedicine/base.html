@@ -41,12 +41,16 @@
                             <a class="nav-item nav-link" href="{% url 'patientportalhome' %}">Patient Home</a>
                             <a class="nav-item nav-link" href="{% url 'patientprofile' %}">Profile</a>
                             <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+
+
                         {% else %}
-                            <a class="nav-item nav-link" href="#">Physician Login</a>
+
                             <a class="nav-item nav-link" href="{% url 'login' %}">Patient Login</a>
                             <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+
                         {% endif %}
                     </div>
+
                 </div>
             </div>
         </nav>
