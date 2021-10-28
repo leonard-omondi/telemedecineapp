@@ -39,6 +39,6 @@ urlpatterns = [
     path('physicianlogin/', auth_views.LoginView.as_view(template_name='physicianportal/physicianlogin.html'), name='physicianlogin'),
     path('physicianlogout/', auth_views.LogoutView.as_view(template_name='physicianportal/physicianlogout.html'), name='physicianlogout'),
     path('physicianprofile/', physicianportal_views.physicianprofile, name='physicianprofile'),
-    path('', include('telemedicine.urls')),  # Empty path makes this our homepage
+    path('', include('telemedicine.urls')),  # Empty path makes this our homepage.
 
 ]
