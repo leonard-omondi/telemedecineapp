@@ -1,6 +1,6 @@
-# telemedecineapp
+#   Telemedecineapp
 
-TelemedicineApp
+
 TelemedicineApp is a web portal designed for secure and convenient telemedicine services. It provides a platform for storing messages/chats, reports, appointment requests, and hosting video consultations. The app is built using Django and integrates Agora Video Chat for seamless video communication.
 
 Features
