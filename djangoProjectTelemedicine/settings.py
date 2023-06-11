@@ -13,6 +13,8 @@ import dotenv
 dotenv.load_dotenv()
 from pathlib import Path
 import environ
+import os
+
 
 # Initialise environment variables
 env = environ.Env()
@@ -33,6 +35,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = 'telemedicine.user'
 
 # Application definition
 
@@ -40,6 +43,7 @@ INSTALLED_APPS = [
     'telemedicine.apps.TelemedicineConfig',
     'patientportal.apps.PatientportalConfig',
     'physicianportal.apps.PhysicianportalConfig',
+    #'office.apps.OfficeConfig',
     'staff.apps.StaffConfig',
     'crispy_forms',
     'django.contrib.admin',
@@ -48,7 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    'widget_tweaks',
     'agora'
 ]
 
@@ -135,7 +139,7 @@ STATIC_URL = '/static/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-LOGIN_REDIRECT_URL = 'patientportalhome'
+#LOGIN_REDIRECT_URL = 'patientportalhome'
 
 LOGIN_URL = 'login'
 
@@ -143,3 +147,12 @@ LOGIN_URL = 'login'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'ksudoctorappointment@gmail.com'  # gmail mail created
+EMAIL_HOST_PASSWORD = 'appointmentksu'              # password
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True

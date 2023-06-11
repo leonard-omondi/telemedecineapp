@@ -1,7 +1,82 @@
 {% extends "telemedicine/base.html" %}
 {% block content %}
 
-    {% for patients in patients %}
-        {{ patients.gender }}
-    {% endfor %}
+<style>
+
+h1 {
+  text-align: center;
+}
+
+.contentsection {
+  position: relative;
+  right: 10%;
+  background: #F7FBFF;
+  padding: 15px 30px;
+  border: 2px solid #dddddd;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  width: 1500px;
+}
+
+</style>
+
+    <div class="contentsection">
+
+
+        <h1>Patients List </h1>
+
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Gender</th>
+                <th>Weight</th>
+                <th>SSN</th>
+                <th>DOB</th>
+                <th>Address</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+                <th>DoctorID/Name</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for patients in patients %}
+
+                <tr>
+<form action="" method="post" style="margin-top: 10px;">
+        {% csrf_token %}
+                    <td>{{ patients.user_id__first_name }}</td> <!-- user class in models !-->
+                    <td>{{ patients.user_id__last_name }}</td>
+                    <td>{{ patients.gender }}</td>              <!-- patient class in models !-->
+                    <td>{{ patients.weight }}</td>
+                    <td>{{ patients.ssn }}</td>
+                    <td>{{ patients.dob }}</td>
+                    <td>{{ patients.address1 }}</td>
+                    <td>{{ patients.user_id__phone }}</td>
+                    <td>{{ patients.user_id__email }}</td>
+                    <td>{{ patients.doctorID }}</td>
+                    <td>
+                          </select>
+          <br></td>
+                   <!-- <td>
+                        <input type="submit" value="edit">
+                    </td>
+                    !-->
+</form>
+                </tr>
+
+            {% endfor %}
+
+
+            </tbody>
+        </table>
+
+
+    </div>
+
+
+
 {% endblock content %}

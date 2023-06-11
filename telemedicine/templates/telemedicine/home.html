@@ -1,49 +1,64 @@
 {% extends "telemedicine/base.html" %}
 {% block content %}
-<h1>Register for an Account</h1>
 
-    <form action="" method="post" style="margin-top: 10px;">
-        {% csrf_token %}
+<style>
+    body {
+        background-image: url('https://i.ibb.co/L0Gk9R8/What-you-need-to-know-about-going-to-the-doctors-office-during-the-COVID-19-pandemic.jpg');
+        background-repeat: no-repeat;
+        background-position: center fixed;
+        background-size: cover;
+    }
 
-    <label>First Name: </label>
-    <input type="text" name="firstname" placeholder="First Name" required>
-    <br>
+    .footer1 {
+        position: fixed;
+        display: flex;
+        flex-direction: row;
+        align-self: auto;
+        gap: 10px;
+        left: 10px;
+        bottom: 0;
+        width: 400px;
+        height: 150px;
+        text-align: left;
+    }
 
-    <label>Middle Name: </label>
-    <input type="text" name="middlename" placeholder="Middle Name">
-    <br>
-    <label>Last Name: </label>
-    <input type="text" name="lastname" placeholder="Last Name" required>
-    <br>
-    <label>Social Security Number: </label>
-    <input type="number" name="ssn" placeholder="Social Security Number">
-    <br>
-    <label>Gender: </label>
-      <input type="radio" id="f" name="gender" value="f"> <label for="f">Female</label>
-          <input type="radio" id="m" name="gender" value="m"> <label for="m">Male</label>
-          <br>
-    <label>Date of Birth</label>
-    <input type="date" name="dob" placeholder="Date of Birth">
-    <br>
-    <label>Height in Feet: </label>
-    <input type="number" step="0.01" name="height" placeholder="Height">
-    <br>
-    <label>Weight in pounds: </label>
-    <input type="number" name="weight" placeholder="Weight">
-    <br>
-    <label>Address: </label>
-    <input type="text" name="address1" placeholder="Address">
-    <br>
-    <label>City: </label>
-    <input type="text" name="city" placeholder="City">
-    <br>
-    <label>ZipCode: </label>
-    <input type="number" name="zipcode" placeholder="ZipCode">
-    <br>
-    <label>State: </label>
-    <input type="text" name="state" placeholder="State">
-    <br>
-    <input type="submit" value="Add patient">
-    </form>
+    .footer2 {
+        position:fixed;
+        display: flex;
+        flex-direction: row;
+        align-self: auto;
+        gap: 10px;
+        bottom: 0;
+        right: 0;
+        width: 310px;
+        height: 100px;
+        text-align: left;
+    }
+
+</style>
+<body>
+
+    <div class="footer1">
+        <h3>Our Office</h3>
+        <p>
+            A108 Adam Street <br>
+            NY 535022, USA<br><br>
+            <strong>Support Phone:</strong> (555) 555 5555<br>
+            <strong>Phone:</strong> (555) 555 5555<br>
+            <strong>Email:</strong> info@example.com<br>
+        </p>
+    </div>
+
+    <div class="footer2">
+        <h4>Useful Links</h4>
+        <ul>
+            <li><a href="about/#services">Our Services</a></li>
+            <li><a href="about/#practice">Practices</a></li>
+            <li><a href="about/#terms">Terms of Service</a></li>
+            <li><a href="about/#privacy">Privacy Policy</a></li>
+        </ul>
+    </div>
+</body>
+
 {% endblock content %}
 

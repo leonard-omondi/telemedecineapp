@@ -1,0 +1,213 @@
+{% extends "telemedicine/base.html" %}
+{% block content %}
+
+<div class="container">
+    <div class="main-body">
+
+          <!-- Breadcrumb -->
+          <nav aria-label="breadcrumb" class="main-breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+              <li class="breadcrumb-item"><a href="javascript:void(0)">User</a></li>
+              <li class="breadcrumb-item active" aria-current="page">User Profile</li>
+            </ol>
+          </nav>
+          <!-- /Breadcrumb -->
+
+          <div class="row gutters-sm">
+            <div class="col-md-4 mb-3">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex flex-column align-items-center text-center">
+                    <img src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg" alt="Admin" class="rounded-circle" width="150">
+                    <div class="mt-3">
+                      <h4>{{user.first_name}} {{user.last_name}}</h4>
+
+
+                      <p class="text-muted font-size-sm">Next Appointments:
+                          {% for next_appointments in next_appointments %}
+                              {{ next_appointments.aptdatetime }}
+                              <br>
+    {% endfor %}</p>
+
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-md-8">
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Full Name</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {{user.first_name}} {{user.last_name}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+{% comment %}                    <div class="col-sm-3">
+                      <h6 class="mb-0">Position</h6>
+                    </div>{% endcomment %}
+                    <div class="col-sm-9 text-secondary">
+
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Email</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        {{user.email}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Phone Number</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        {{user.phone}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+{% comment %}                    <div class="col-sm-3">
+                      <h6 class="mb-0">Address</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        {% for patientinfo in patientinfo %}
+                            {{ patientinfo.address1 }} , {{ patientinfo.city }}, {{ patientinfo.zipcode }}
+                        {% endfor %}
+
+                    </div>{% endcomment %}
+                  </div>
+                  <hr>
+                  <div class="row">
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+    </div>
+
+
+
+
+    {% load static %}
+    <script src="https://cdn.agora.io/sdk/release/AgoraRTCSDK-3.3.1.js"></script>
+    <title>Agora Video Chat Django</title>
+  </head>
+  <body>
+    <main id="app">
+      <main>
+        <div class="container my-5">
+          <div class="row">
+            <div class="col">
+              <div class="btn-group" role="group">
+                {% for singleUser in docs_users%}
+                <button
+                  type="button"
+                  class="btn btn-primary mr-2"
+
+                  @click="placeCall('{{singleUser.id}}','{{singleUser}}')"
+                >
+                Call {{singleUser.first_name}} {{singleUser.last_name}}
+                  <span class="badge badge-light"
+                    >${ getUserOnlineStatus({{singleUser.id}})}</span
+                  >
+                </button>
+
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+
+          <!-- Incoming Call  -->
+          <div class="row my-5" v-if="incomingCall">
+            <div class="col-12">
+              <p>Incoming Call From <strong>${ incomingCaller }</strong></p>
+              <div class="btn-group" role="group">
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  data-dismiss="modal"
+                  @click="declineCall"
+                >
+                  Decline
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-success ml-5"
+                  @click="acceptCall"
+                >
+                  Accept
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- End of Incoming Call  -->
+        </div>
+
+        <section id="video-container" v-if="callPlaced">
+          <div id="local-video"></div>
+          <div id="remote-video"></div>
+
+          <div class="action-btns">
+            <button
+              type="button"
+              class="btn btn-info"
+              @click="handleAudioToggle"
+            >
+              ${ mutedAudio ? "Unmute" : "Mute" }
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary mx-4"
+              @click="handleVideoToggle"
+            >
+              ${ mutedVideo ? "ShowVideo" : "HideVideo" }
+            </button>
+            <button type="button" class="btn btn-danger" @click="endCall">
+              EndCall
+            </button>
+          </div>
+
+        </section>
+      </main>
+    </main>
+    <!-- Add Scripts -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pusher/7.0.3/pusher.min.js"></script>
+    <script>
+      window.pusher = new Pusher("de46bc78b93d119411db", {
+          cluster: 'us2',
+        authEndpoint: "{% url 'agora-pusher-auth' %}",
+        auth: {
+          headers: {
+            "X-CSRFToken": "{{ csrf_token }}",
+          },
+        },
+      });
+
+      const AUTH_USER = "{{user}}"
+      const AUTH_USER_ID =  "{{request.user.id}}"
+      const CSRF_TOKEN = "{{ csrf_token }}"
+    </script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="index.js"></script>
+  </body>
+
+{% endblock content %}

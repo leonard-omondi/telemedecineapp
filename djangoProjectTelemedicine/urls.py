@@ -13,24 +13,33 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('telemedicine/', include('telemedicine.urls'))
 """
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import path, include
 import agora
 from patientportal import views as patientportal_views
 from physicianportal import views as physicianportal_views
+from staff import views as staff_views
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('register/', patientportal_views.register, name='register'),
-    path('login/', auth_views.LoginView.as_view(template_name='patientportal/login.html'), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(template_name='patientportal/logout.html'), name='logout'),
-    path('patientportal/', patientportal_views.patientportalhome, name='patientportalhome'),
+    path('patienthome/', patientportal_views.patienthome, name='patienthome'),
     path('patientprofile/', patientportal_views.patientprofile, name='patientprofile'),
-    # path('physicianportal/',physicianportal_views.physicianportalhome,name='physicianportalhome'),
+    path('doctorhome/',physicianportal_views.doctorhome,name='doctorhome'),
+    path('doctorprofile/',physicianportal_views.doctorprofile,name='doctorprofile'),
     path('', include('telemedicine.urls')),  # Empty path makes this our homepage
     # Agora Routes
     path('', include('agora.urls')),
-    path('admin/', admin.site.urls),
+    path('upload/', staff_views.upload_document, name='telemedicine-upload_document'),
+    path('documentlist/', patientportal_views.document_list, name='telemedicine-documentlist'),
+    path('documentlist_all/', staff_views.document_list, name='staff-documentlist_all'),
+    path('appointmentlist_all/', staff_views.appointment_list_all, name='staff-appointmentlist_all'),
+    path('edituserinfo/', staff_views.edit_user_info, name='staff-edit_user_info'),
+    path('editpatientinfo/', staff_views.edit_patient_info, name='staff-edit_patient_info'),
+    path('patientlookupedit/', staff_views.patient_lookup, name='staff-patient_lookup'),
 ]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

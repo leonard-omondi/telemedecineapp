@@ -1,0 +1,41 @@
+{% extends 'telemedicine/base.html' %}
+{# {% load crispy_forms_tags %} #}
+{% block content %}
+
+    <h1>User's Profile </h1>
+    <hr>
+    <div class="content-section">
+      <div class="media">
+
+            <div class="media-body">
+
+                <h2 class="account-heading">{{ user_str }}</h2>
+            </div>
+        </div>
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Profile Info</legend>
+                {# {{ p_form|crispy }} #}
+                <label>ssn</label><input type="text" id="ssn" value="{{ ssn }}"></br>
+                <label>DOB</label><input type="text" id="dob" value="{{ dob }}"></br>
+                <label>height</label><input type="text" id="height" value="{{ height }}"></br>
+                <label>weight</label><input type="text" id="weight" value="{{ weight }}"></br>
+                <label>ethnicity</label><input type="text" id="ethnicity" value="{{ ethnicity }}"></br>
+                <label>doctorID</label><input type="text" id="doctorID" value="{{ doctorID }}"></br>
+                <label>address1</label><input type="text" id="address1" value="{{ address1 }}"></br>
+                <label>city</label><input type="text" id="city" value="{{ city }}"></br>
+                <label>zipcode</label><input type="text" id="zipcode" value="{{ zipcode }}"></br>
+                <label>state</label><input type="text" id="state" value="{{ state }}"></br>
+                <label>gender</label><input type="text" id="gender" value="{{ gender }}"></br>
+
+                </br>
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Update</button>
+            </div>
+        </form>
+    </div>
+
+
+{% endblock content %}

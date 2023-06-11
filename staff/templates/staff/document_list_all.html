@@ -1,0 +1,51 @@
+{% extends 'telemedicine/base.html' %}
+{% block content %}
+
+<style>
+
+h1 {
+  text-align: center;
+}
+
+.contentsection {
+  position: relative;
+  right: 10%;
+  background: #F7FBFF;
+  padding: 15px 30px;
+  border: 2px solid #dddddd;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  width: 1500px;
+}
+
+</style>
+
+    <div class="contentsection">
+
+        <h1>Document List </h1>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Date of upload</th>
+                <th>PatientID</th>
+                <th>Title</th>
+                <th>Notes</th>
+                <th>Download</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for document in documents %}
+                <tr>
+                    <td>{{ document.date }}</td>
+                    <td>{{ document.patientno }}</td>
+                    <td>{{ document.filename }}</td>
+                    <td>{{ document.notes }}</td>
+                    <td><a href="{{ document.fileurl.url }}" class="btn btn-outline-info" target="_blank">Download
+                        Document</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock content %}

@@ -1,0 +1,78 @@
+{% extends 'telemedicine/base.html' %}
+{% block content %}
+
+<style>
+
+h1 {
+  text-align: center;
+}
+
+.contentsection {
+  position: relative;
+  right: 10%;
+  background: #F7FBFF;
+  padding: 15px 30px;
+  border: 2px solid #dddddd;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  width: 1500px;
+}
+
+</style>
+
+    <div class="contentsection">
+
+
+        <h1>Appointment Requests List </h1>
+
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Request ID</th>
+                <th>Request made on</th>
+                <th>PatientID</th>
+                <th>Patient Name</th>
+                <th>Date and time of appointment</th>
+                <th>Doctor Name</th>
+                <th>Confirmation</th>
+                <th>Accept</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for apt in appointments %}
+
+            <tr>
+<form action="" method="post" style="margin-top: 10px;">
+        {% csrf_token %}
+                    <td><input type="hidden" name="id" value={{ apt.id }}></td>
+                    <td>{{ apt.madeon }}</td>
+                    <td>{{ apt.patientno_id }}</td>
+                    <td>{{ apt.patientno__user_id__first_name }} {{ apt.patientno__user_id__last_name }}</td>
+                    <td>{{ apt.aptdatetime }}</td>
+                    <td>{{ apt.patientno__doctorID}}</td>
+                    <td>
+                          <select name="confirm">
+                              <option value=null>NA</option>
+                              <option value=True>Accept</option>
+                              <option value=False>Refuse</option>
+                          </select>
+          <br></td>
+                    <td>
+                        <input type="submit" value="Submit">
+                    </td>
+</form>
+                </tr>
+
+            {% endfor %}
+
+
+            </tbody>
+        </table>
+
+
+    </div>
+
+
+
+{% endblock content %}

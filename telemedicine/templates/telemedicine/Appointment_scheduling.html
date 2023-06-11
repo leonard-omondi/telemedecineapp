@@ -1,0 +1,27 @@
+{% extends "telemedicine/base.html" %}
+{% block content %}
+
+<h1>Request an appointment</h1>
+
+    <form action="{% url 'telemedicine-appointment_requested' %}" method="post">
+        {% csrf_token %}
+
+    <input type="date" name="appointment_date" placeholder="Date of appointment" >
+
+        <label for="appointment_slots">Choose a slot:</label>
+<input list="slots" id="appointment_slots" name="appointment_slots" />
+
+<datalist id="slots">
+    {% for slots in slots %}
+        <option value={{ slots.start_time }}>
+
+    {% endfor %}
+
+</datalist>
+
+<input type="submit" value="Send">
+
+
+    </form>
+
+{% endblock content %}

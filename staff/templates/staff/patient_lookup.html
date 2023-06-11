@@ -1,0 +1,14 @@
+{% extends 'telemedicine/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="content-section">
+        <h1>Document Upload Page</h1>
+        <form action= "{% url 'staff-edit_patient_info' %}"
+              method="POST" enctype="multipart/form-data">
+
+            {% csrf_token %}
+            {{ form| crispy }}
+            <button type="submit" class="btn btn-outline-info">Edit Patient Profile</button>
+        </form>
+    </div>
+{% endblock content %}

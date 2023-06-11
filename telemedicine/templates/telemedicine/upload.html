@@ -1,0 +1,16 @@
+{% extends 'telemedicine/base.html' %}
+{% block content %}
+
+    <h1>Upload Page</h1>
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <input type="file" name="document">
+            <button class="btn btn-outline-info" type="submit">Upload File</button>
+        </div>
+    </form>
+    {% if url %}
+        <p>Uploaded File: <a href="{{ url }}">{{ url }}</a></p>
+    {% endif %}
+
+{% endblock content %}
